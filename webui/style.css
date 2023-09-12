@@ -13,6 +13,7 @@ dialog {
   padding: 1em;
   box-shadow: 0 0 6px 0 #444;
   color: inherit;
+  background-color: inherit;
 }
 
 fieldset {
