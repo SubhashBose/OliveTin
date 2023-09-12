@@ -66,6 +66,7 @@ type Config struct {
 	ListenAddressRestActions        string
 	ListenAddressGrpcActions        string
 	ExternalRestAddress             string
+	ProxyBaseURL			string
 	LogLevel                        string
 	Actions                         []Action `mapstructure:"actions"`
 	Entities                        []Entity `mapstructure:"entities"`
@@ -91,14 +92,15 @@ func DefaultConfig() *Config {
 	config := Config{}
 	config.UseSingleHTTPFrontend = true
 	config.PageTitle = "OliveTin"
-	config.ShowFooter = true
+	config.ShowFooter = false
 	config.ShowNavigation = true
-	config.ShowNewVersions = true
+	config.ShowNewVersions = false
 	config.ListenAddressSingleHTTPFrontend = "0.0.0.0:1337"
 	config.ListenAddressRestActions = "localhost:1338"
 	config.ListenAddressGrpcActions = "localhost:1339"
 	config.ListenAddressWebUI = "localhost:1340"
 	config.ExternalRestAddress = "."
+	config.ProxyBaseURL = "/"
 	config.LogLevel = "INFO"
 	config.CheckForUpdates = true
 	config.DefaultPermissions.Exec = true
