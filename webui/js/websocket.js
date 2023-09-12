@@ -27,6 +27,13 @@ function reconnectWebsocket () {
   ws.addEventListener('close', websocketOnClose)
 }
 
+function heartbeat() {
+  if (window.ws && window.ws.readyState == 1)
+        window.ws.send("heartbeat");
+  setTimeout(heartbeat, 30000);
+}
+heartbeat()
+
 function websocketOnOpen (evt) {
   window.websocketAvailable = true
 
