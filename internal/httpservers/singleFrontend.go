@@ -33,12 +33,19 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
+	rewrite := func(path string) string {
+                path=strings.Replace(path,cfg.ProxyBaseURL,"/",1)
+                return path
+        }
+
+	mux.HandleFunc(cfg.ProxyBaseURL+"api/", func(w http.ResponseWriter, r *http.Request) {
 		log.Debugf("api req: %q", r.URL)
+		r.URL.Path = rewrite(r.URL.Path)
 		apiProxy.ServeHTTP(w, r)
 	})
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(cfg.ProxyBaseURL, func(w http.ResponseWriter, r *http.Request) {
+		r.URL.Path = rewrite(r.URL.Path)
 		if strings.Contains(r.Header.Get("Connection"), "Upgrade") {
 			websocket.HandleWebsocket(w, r)
 		} else {
