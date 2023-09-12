@@ -17,7 +17,8 @@ function reconnectWebsocket () {
     proto = 'wss:'
   }
 
-  const websocketConnectionUrl = proto + window.location.host + '/websocket'
+  //const websocketConnectionUrl = proto + window.location.host + '/websocket'
+  const websocketConnectionUrl = proto + window.location.host + window.location.pathname + 'websocket'
   const ws = window.ws = new WebSocket(websocketConnectionUrl)
 
   ws.addEventListener('open', websocketOnOpen)
