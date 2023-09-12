@@ -44,8 +44,10 @@ jobs:
 
         run: |
           export GO_PATH=~/go
-          export PATH=$PATH:/$GO_PATH/bin
-          ls //home/runner/go/bin
+          export PATH=$PATH:$GO_PATH/bin
+          pwd
+          ls -lR .
+          ls -lR /home/runner/
           make grpc
           CGO_ENABLED=0 go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin" github.com/OliveTin/OliveTin/cmd/OliveTin
           tar -zcvf OliveTin_${GOOS}-${GOARCH}.tar.gz OliveTin webui/
