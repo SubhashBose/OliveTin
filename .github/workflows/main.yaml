@@ -13,18 +13,18 @@ jobs:
         include:
           - goos: linux
             goarch: amd64
-          - goos: linux
-            goarch: arm64
+          #- goos: linux
+          #  goarch: arm64
           #- goos: linux
           #  goarch: '386'
-          - goos: darwin
-            goarch: amd64
-          - goos: darwin
-            goarch: arm64
-          - goos: windows
-            goarch: amd64
-          - goos: windows
-            goarch: arm64
+          #- goos: darwin
+          #  goarch: amd64
+          #- goos: darwin
+          #  goarch: arm64
+          #- goos: windows
+          #  goarch: amd64
+          #- goos: windows
+          #  goarch: arm64
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2.3.4
@@ -45,9 +45,6 @@ jobs:
         run: |
           export GO_PATH=~/go
           export PATH=$PATH:$GO_PATH/bin
-          pwd
-          ls -lR .
-          ls -lR /home/runner/
           make grpc
           CGO_ENABLED=0 go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin" github.com/OliveTin/OliveTin/cmd/OliveTin
           tar -zcvf OliveTin_${GOOS}-${GOARCH}.tar.gz OliveTin webui/
