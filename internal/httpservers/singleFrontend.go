@@ -22,7 +22,7 @@ import (
 // and webui internally.
 func StartSingleHTTPFrontend(cfg *config.Config) {
 	log.WithFields(log.Fields{
-		"address": cfg.ListenAddressSingleHTTPFrontend,
+		"address": cfg.ListenAddressSingleHTTPFrontend+cfg.ProxyBaseURL,
 	}).Info("Starting single HTTP frontend")
 
 	apiURL, _ := url.Parse("http://" + cfg.ListenAddressRestActions)
