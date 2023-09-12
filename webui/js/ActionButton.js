@@ -63,12 +63,18 @@ class ActionButton extends window.HTMLElement {
       actionArgs = []
     }
 
+    try{
+        var uuid=window.crypto.randomUUID()
+    } catch (e){
+        var uuid=Date.now().toString()
+    }
+
     // UUIDs are create client side, so that we can setup a "execution-button"
     // to track the execution before we send the request to the server.
     const startActionArgs = {
       actionName: this.btn.title,
       arguments: actionArgs,
-      uuid: window.crypto.randomUUID()
+      uuid: uuid //window.crypto.randomUUID()
     }
 
     const btnExecution = document.createElement('execution-button')
