@@ -91,7 +91,7 @@ type Config struct {
 func DefaultConfig() *Config {
 	config := Config{}
 	config.UseSingleHTTPFrontend = true
-	config.PageTitle = "OliveTin"
+	config.PageTitle = "Control Center"
 	config.ShowFooter = false
 	config.ShowNavigation = true
 	config.ShowNewVersions = false
