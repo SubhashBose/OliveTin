@@ -45,9 +45,7 @@ jobs:
         run: |
           export GO_PATH=~/go
           export PATH=$PATH:/$GO_PATH/bin
-          #v=$(echo ${GITHUB_REF} | awk -F/ '{print substr($3,2,10);}')
-          #go build -x -v -mod=vendor -ldflags "-X main.version=${v} -w -s" -o "wolweb_${GOOS}-${GOARCH}"
-          CGO_ENABLED=0 go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin"
+          go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin"
           tar -zcvf OliveTin_${GOOS}-${GOARCH}.tar.gz OliveTin webui/
 
       - name: Upload to artifact storage
