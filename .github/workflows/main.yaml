@@ -45,7 +45,8 @@ jobs:
         run: |
           export GO_PATH=~/go
           export PATH=$PATH:/$GO_PATH/bin
-          go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin"
+          make grpc
+          CGO_ENABLED=0 go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin" github.com/OliveTin/OliveTin/cmd/OliveTin
           tar -zcvf OliveTin_${GOOS}-${GOARCH}.tar.gz OliveTin webui/
 
       - name: Upload to artifact storage
