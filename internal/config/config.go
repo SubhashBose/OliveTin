@@ -94,7 +94,7 @@ func DefaultConfig() *Config {
 	config.PageTitle = "Control Center"
 	config.ShowFooter = false
 	config.ShowNavigation = true
-	config.ShowNewVersions = false
+	config.ShowNewVersions = true
 	config.ListenAddressSingleHTTPFrontend = "0.0.0.0:1337"
 	config.ListenAddressRestActions = "localhost:1338"
 	config.ListenAddressGrpcActions = "localhost:1339"
@@ -102,7 +102,7 @@ func DefaultConfig() *Config {
 	config.ExternalRestAddress = "."
 	config.ProxyBaseURL = "/"
 	config.LogLevel = "INFO"
-	config.CheckForUpdates = true
+	config.CheckForUpdates = false
 	config.DefaultPermissions.Exec = true
 	config.DefaultPermissions.View = true
 	config.AuthJwtClaimUsername = "name"
