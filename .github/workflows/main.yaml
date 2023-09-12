@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build targets
+        include:
+          - goos: linux
+            goarch: amd64
+          - goos: linux
+            goarch: arm64
+          #- goos: linux
+          #  goarch: '386'
+          - goos: darwin
+            goarch: amd64
+          - goos: darwin
+            goarch: arm64
+          - goos: windows
+            goarch: amd64
+          - goos: windows
+            goarch: arm64
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2.3.4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.20'
+
+      - name: Build for Linux
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+
+        run: |
+          export GO_PATH=~/go
+          export PATH=$PATH:/$GO_PATH/bin
+          #v=$(echo ${GITHUB_REF} | awk -F/ '{print substr($3,2,10);}')
+          #go build -x -v -mod=vendor -ldflags "-X main.version=${v} -w -s" -o "wolweb_${GOOS}-${GOARCH}"
+          CGO_ENABLED=0 go build -x -v -trimpath -ldflags "-w -s -buildid=" -o "OliveTin"
+          tar -zcvf OliveTin_${GOOS}-${GOARCH}.tar.gz OliveTin webui/
+
+      - name: Upload to artifact storage
+        uses: actions/upload-artifact@v2
+        with:
+          path: OliveTin_${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
+          if-no-files-found: error
+          # only meant for sharing with the publish job
+          retention-days: 1
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          path: ./
+    #
+    #  - uses: "marvinpinto/action-automatic-releases@latest"
+    #    with:
+    #      repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    #      prerelease: false
+    #      files: |
+    #        NI_*
+    #    id: "automatic_releases"
+    
+      - name: Create tag
+        id: create_tag
+        run: |
+          tag=$(date +%Y-%m-%d_%H%M%S)
+          echo "::set-output name=tag::$tag"
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifact/OliveTin_*
+          tag_name: ${{ steps.create_tag.outputs.tag }}
+          #body_path: rel_note.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
