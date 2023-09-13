@@ -6,7 +6,7 @@
 listenAddressSingleHTTPFrontend: 0.0.0.0:1337
 
 # Base url to use for built-in proxy, default is '/'. Can be changed here
-# ProxyBaseURL: /control/
+#ProxyBaseURL: /control/
 
 # Choose from INFO (default), WARN and DEBUG
 logLevel: "INFO"
@@ -85,6 +85,7 @@ actions:
   timeout: 5
   icon: "&#x1F62A"
 
-externalproxies:
-- target: http://localhost:8975
-  baseurl: /webssh/
+# Create reverse proxies for given URLs
+#externalproxies:
+#- target: http://localhost:8975
+#  baseurl: /some-server/
