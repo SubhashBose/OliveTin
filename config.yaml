@@ -84,3 +84,7 @@ actions:
   shell: sleep 5
   timeout: 5
   icon: "&#x1F62A"
+
+externalproxies:
+- target: http://localhost:8975
+  baseurl: /webssh/

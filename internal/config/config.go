@@ -57,6 +57,11 @@ type AccessControlList struct {
 	Permissions      PermissionsList
 }
 
+type ExternalProxy struct {
+	BaseURL string
+	Target 	string
+}
+
 // Config is the global config used through the whole app.
 type Config struct {
 	UseSingleHTTPFrontend           bool
@@ -66,7 +71,8 @@ type Config struct {
 	ListenAddressRestActions        string
 	ListenAddressGrpcActions        string
 	ExternalRestAddress             string
-	ProxyBaseURL			string
+	ProxyBaseURL					string
+	ExternalProxies					[]ExternalProxy `mapstructure:"externalproxies"`
 	LogLevel                        string
 	Actions                         []Action `mapstructure:"actions"`
 	Entities                        []Entity `mapstructure:"entities"`
