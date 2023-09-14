@@ -72,6 +72,8 @@ type Config struct {
 	ListenAddressGrpcActions        string
 	ExternalRestAddress             string
 	ProxyBaseURL					string
+	AuthUser						string
+	AuthPass						string
 	ExternalProxies					[]ExternalProxy `mapstructure:"externalproxies"`
 	LogLevel                        string
 	Actions                         []Action `mapstructure:"actions"`
@@ -107,6 +109,8 @@ func DefaultConfig() *Config {
 	config.ListenAddressWebUI = "localhost:1340"
 	config.ExternalRestAddress = "."
 	config.ProxyBaseURL = "/"
+	AuthUser = ""
+	AuthPass = ""
 	config.LogLevel = "INFO"
 	config.CheckForUpdates = false
 	config.DefaultPermissions.Exec = true
