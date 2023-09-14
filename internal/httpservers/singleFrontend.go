@@ -65,21 +65,21 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 		}
 	})
 
-	MakeProxy := func (base, target string) {
-		appURL, _ := url.Parse(target)
+	MakeProxy := func (proxy config.ExternalProxy) {
+		log.Info("Setting up external Proxy: " + proxy.BaseURL + " -> " + proxy.Target)
+		appURL, _ := url.Parse(proxy.Target)
 		appProxy := httputil.NewSingleHostReverseProxy(appURL)
-		mux.HandleFunc(base, func(w http.ResponseWriter, r *http.Request) {
-						if (!AuthFunc(w,r)) {
-							return
-						}
-						r.URL.Path = strings.Replace(r.URL.Path,base,"/",1)
-						appProxy.ServeHTTP(w, r)
+		mux.HandleFunc(proxy.BaseURL, func(w http.ResponseWriter, r *http.Request) {
+										if (!proxy.NoAuth && !AuthFunc(w,r)) {
+												return
+										}
+										r.URL.Path = strings.Replace(r.URL.Path,proxy.BaseURL,"/",1)
+										appProxy.ServeHTTP(w, r)
 		})
 	}
 
 	for _, extproxy := range cfg.ExternalProxies {
-		log.Info("Setting up external Proxy: " + extproxy.BaseURL + " -> " + extproxy.Target)
-		MakeProxy(extproxy.BaseURL, extproxy.Target)
+			MakeProxy(extproxy)
 	}
 
 	srv := &http.Server{

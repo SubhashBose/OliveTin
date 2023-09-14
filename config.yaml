@@ -8,7 +8,7 @@ listenAddressSingleHTTPFrontend: 0.0.0.0:1337
 # Base url to use for built-in proxy, default is '/'. Can be changed here
 #ProxyBaseURL: /control/
 
-# HTTP Basic authentication
+# Global HTTP Basic authentication
 #AuthUser: user
 #AuthPass: password
 
@@ -92,4 +92,7 @@ actions:
 # Create reverse proxies for given URLs
 #externalproxies:
 #- target: http://localhost:8975
-#  baseurl: /application/
+#  baseurl: /application1/
+#- target: http://localhost:2222
+#  baseurl: /application2/
+#  noauth: true  # exclude from global HTTP authentication if defined in this config
