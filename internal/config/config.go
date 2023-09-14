@@ -109,8 +109,8 @@ func DefaultConfig() *Config {
 	config.ListenAddressWebUI = "localhost:1340"
 	config.ExternalRestAddress = "."
 	config.ProxyBaseURL = "/"
-	AuthUser = ""
-	AuthPass = ""
+	config.AuthUser = ""
+	config.AuthPass = ""
 	config.LogLevel = "INFO"
 	config.CheckForUpdates = false
 	config.DefaultPermissions.Exec = true
