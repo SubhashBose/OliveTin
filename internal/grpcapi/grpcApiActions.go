@@ -12,7 +12,7 @@ func actionsCfgToPb(cfgActions []config.Action, user *acl.AuthenticatedUser) *pb
 	res := &pb.GetDashboardComponentsResponse{}
 
 	for _, action := range cfgActions {
-		if !acl.IsAllowedView(cfg, user, &action) || action.hidden {
+		if !acl.IsAllowedView(cfg, user, &action) || action.Hidden {
 			continue
 		}
 
