@@ -15,7 +15,7 @@ type Action struct {
 	MaxConcurrent int
 	Arguments     []ActionArgument
 	PopupOnStart  bool
-	hidden		  `default:false`
+	hidden		  bool `default:false`
 }
 
 // ActionArgument objects appear on Actions.
