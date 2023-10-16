@@ -22,7 +22,7 @@ import (
 // and webui internally.
 func StartSingleHTTPFrontend(cfg *config.Config) {
 	log.WithFields(log.Fields{
-		"address": cfg.ListenAddressSingleHTTPFrontend,
+		"address": cfg.ListenAddressSingleHTTPFrontend+cfg.ProxyBaseURL,
 	}).Info("Starting single HTTP frontend")
 
 	apiURL, _ := url.Parse("http://" + cfg.ListenAddressRestActions)
@@ -33,12 +33,30 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/", func(w http.ResponseWriter, r *http.Request) {
+	AuthFunc := func (w http.ResponseWriter, r *http.Request) bool {
+		u, p, ok := r.BasicAuth()
+		if !(cfg.AuthUser == "" && cfg.AuthPass == "") && !(ok && u == cfg.AuthUser && p ==cfg.AuthPass ){
+				w.Header().Set("WWW-Authenticate", "Basic realm=\"Control Server\", charset=\"UTF-8\"")
+				w.WriteHeader(401)
+				return false
+		}
+		return true
+	}
+	
+	mux.HandleFunc(cfg.ProxyBaseURL+"api/", func(w http.ResponseWriter, r *http.Request) {
 		log.Debugf("api req: %q", r.URL)
+		if (!AuthFunc(w,r)) {
+			return
+		}
+		r.URL.Path = strings.Replace(r.URL.Path,cfg.ProxyBaseURL,"/",1)
 		apiProxy.ServeHTTP(w, r)
 	})
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(cfg.ProxyBaseURL, func(w http.ResponseWriter, r *http.Request) {
+		if (!AuthFunc(w,r)) {
+			return
+		}
+		r.URL.Path = strings.Replace(r.URL.Path,cfg.ProxyBaseURL,"/",1)
 		if strings.Contains(r.Header.Get("Connection"), "Upgrade") {
 			websocket.HandleWebsocket(w, r)
 		} else {
@@ -46,6 +64,23 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 			webuiProxy.ServeHTTP(w, r)
 		}
 	})
+
+	MakeProxy := func (proxy config.ExternalProxy) {
+		log.Info("Setting up external Proxy: " + proxy.BaseURL + " -> " + proxy.Target)
+		appURL, _ := url.Parse(proxy.Target)
+		appProxy := httputil.NewSingleHostReverseProxy(appURL)
+		mux.HandleFunc(proxy.BaseURL, func(w http.ResponseWriter, r *http.Request) {
+										if (!proxy.NoAuth && !AuthFunc(w,r)) {
+												return
+										}
+										r.URL.Path = strings.Replace(r.URL.Path,proxy.BaseURL,"/",1)
+										appProxy.ServeHTTP(w, r)
+		})
+	}
+
+	for _, extproxy := range cfg.ExternalProxies {
+			MakeProxy(extproxy)
+	}
 
 	srv := &http.Server{
 		Addr:    cfg.ListenAddressSingleHTTPFrontend,

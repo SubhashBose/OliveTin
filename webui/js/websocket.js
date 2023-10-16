@@ -17,7 +17,8 @@ function reconnectWebsocket () {
     proto = 'wss:'
   }
 
-  const websocketConnectionUrl = proto + window.location.host + '/websocket'
+  //const websocketConnectionUrl = proto + window.location.host + '/websocket'
+  const websocketConnectionUrl = proto + window.location.host + window.location.pathname + 'websocket'
   const ws = window.ws = new WebSocket(websocketConnectionUrl)
 
   ws.addEventListener('open', websocketOnOpen)
@@ -25,6 +26,13 @@ function reconnectWebsocket () {
   ws.addEventListener('error', websocketOnError)
   ws.addEventListener('close', websocketOnClose)
 }
+
+function heartbeat() {
+  if (window.ws && window.ws.readyState == 1)
+        window.ws.send("heartbeat");
+  setTimeout(heartbeat, 30000);
+}
+heartbeat()
 
 function websocketOnOpen (evt) {
   window.websocketAvailable = true

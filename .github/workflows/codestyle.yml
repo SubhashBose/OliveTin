@@ -2,13 +2,13 @@
 name: "Codestyle checks"
 
 on:
-  push:
-    paths:
-      - 'cmd/**'
-      - 'internal/**'
-      - 'webui/**'
-      - 'integration-tests/**'
-      - 'OliveTin.proto'
+  #push:
+  #  paths:
+  #    - 'cmd/**'
+  #    - 'internal/**'
+  #    - 'webui/**'
+  #    - 'integration-tests/**'
+  #    - 'OliveTin.proto'
 
 
 jobs:

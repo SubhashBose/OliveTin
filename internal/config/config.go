@@ -17,6 +17,7 @@ type Action struct {
 	MaxConcurrent          int
 	Arguments              []ActionArgument
 	PopupOnStart           bool
+	Hidden                 bool `default:false`
 }
 
 // ActionArgument objects appear on Actions.
@@ -59,6 +60,12 @@ type AccessControlList struct {
 	Permissions      PermissionsList
 }
 
+type ExternalProxy struct {
+	BaseURL string
+	Target 	string
+	NoAuth  bool `default:false`
+}
+
 // Config is the global config used through the whole app.
 type Config struct {
 	UseSingleHTTPFrontend           bool
@@ -68,6 +75,10 @@ type Config struct {
 	ListenAddressRestActions        string
 	ListenAddressGrpcActions        string
 	ExternalRestAddress             string
+	ProxyBaseURL                    string
+	AuthUser                        string
+	AuthPass                        string
+	ExternalProxies                 []ExternalProxy `mapstructure:"externalproxies"`
 	LogLevel                        string
 	Actions                         []Action `mapstructure:"actions"`
 	Entities                        []Entity `mapstructure:"entities"`
@@ -92,8 +103,8 @@ type Config struct {
 func DefaultConfig() *Config {
 	config := Config{}
 	config.UseSingleHTTPFrontend = true
-	config.PageTitle = "OliveTin"
-	config.ShowFooter = true
+	config.PageTitle = "Control Center"
+	config.ShowFooter = false
 	config.ShowNavigation = true
 	config.ShowNewVersions = true
 	config.ListenAddressSingleHTTPFrontend = "0.0.0.0:1337"
@@ -101,8 +112,11 @@ func DefaultConfig() *Config {
 	config.ListenAddressGrpcActions = "localhost:1339"
 	config.ListenAddressWebUI = "localhost:1340"
 	config.ExternalRestAddress = "."
+	config.ProxyBaseURL = "/"
+	config.AuthUser = ""
+	config.AuthPass = ""
 	config.LogLevel = "INFO"
-	config.CheckForUpdates = true
+	config.CheckForUpdates = false
 	config.DefaultPermissions.Exec = true
 	config.DefaultPermissions.View = true
 	config.AuthJwtClaimUsername = "name"

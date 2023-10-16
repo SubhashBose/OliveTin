@@ -13,14 +13,14 @@
 name: "CodeQL"
 
 on:
-  push:
-    paths:
-      - 'cmd/**'
-      - 'internal/**'
-      - 'webui/**'
-      - 'integration-tests/**'
-      - 'OliveTin.proto'
-    branches: [main]
+  #push:
+  #  paths:
+  #    - 'cmd/**'
+  #    - 'internal/**'
+  #    - 'webui/**'
+  #    - 'integration-tests/**'
+  #    - 'OliveTin.proto'
+  #  branches: [main]
   pull_request:
     branches: [main]
   schedule:
