@@ -12,6 +12,7 @@ dialog {
   text-align: left;
   padding: 1em;
   box-shadow: 0 0 6px 0 #444;
+  color: inherit;
 }
 
 fieldset {
@@ -65,10 +66,10 @@ footer a {
 aside {
   position: absolute;
   width: 180px;
-  height: 100%;
+  height: calc(100% - 5em);
   left: 0;
   top: 0;
-  padding-top: 4em;
+  padding-top: 5em;
   transition: 0.5s ease;
   background-color: white;
   border: 0 0 10px 0;
@@ -261,6 +262,24 @@ input[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
+fieldset#section-switcher {
+  border: 0;
+  text-align: right;
+  margin-bottom: 1em;
+  float: right;
+}
+
+fieldset#section-switcher button {
+  padding: 1em;
+  color: black;
+  display: table-cell;
+  text-align: center;
+  border: 1px solid #999;
+  background-color: white;
+  box-shadow: 0 0 6px 0 #aaa;
+  user-select: none;
+  cursor: pointer;
+}
 
 /* Button animations */
 
@@ -312,7 +331,7 @@ img.logo {
 
 main {
   padding: 1em;
-  padding-top: 3em;
+  /*padding-top: 3em;*/
 }
 
 summary {
@@ -332,10 +351,12 @@ label {
 }
 
 #perma-widget {
-  position: absolute;
-  top: 1em;
-  left: 1em;
+  position: relative;
+  /*top: 1em;
+  left: 1em;*/
   z-index: 9;
+  text-align: left;
+  height: 3.8em;
 }
 
 #perma-widget label {
@@ -407,11 +428,11 @@ span.tag {
     color: white;
   }
 
-  form.action-arguments {
+  form.action-arguments, form div.wrapper, .action-button-footer, dialog {
     background-color: #333;
   }
 
-  form div.wrapper {
+  aside  {
     background-color: #222;
   }
 

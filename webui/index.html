@@ -21,6 +21,9 @@
 					<label for = "hide-sidebar-checkbox" id = "sidebar-toggler-button" title = "Toggle sidebar" tabindex = "0">&#9776;</label>
 				</div>
 				<h1 id = "page-title">OliveTin</h1>
+				<fieldset id = "section-switcher" title = "Sections">
+					<!--<button onclick="window.open('/webssh', '_blank').focus();">Web SSH</button>-->
+				</fieldset>
 			</div>
 
 
@@ -28,7 +31,6 @@
 				<input type = "checkbox" id = "hide-sidebar-checkbox" hidden checked />
 				<aside>
 					<ul>
-						<!--<li><a href="/webssh" target="_blank">Web SSH</a></li>-->
 						<li><a id = "showActions">Actions</a></li>
 						<li><a id = "showLogs">Logs</a></li>
 					</ul>
@@ -137,7 +139,7 @@
 			</button>
 
 			<div class = "action-button-footer">
-				<details class = "executions">
+				<details class = "executions" open>
 					<summary>Not executed yet.</summary>
 				</details>
 			</div>
