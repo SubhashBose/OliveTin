@@ -215,6 +215,8 @@ action-button details {
 
 action-button details[open] {
   margin-top: 0;
+  max-height: 13em;
+  overflow: auto;
 }
 
 action-button details summary div {
