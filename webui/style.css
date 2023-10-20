@@ -97,6 +97,11 @@ aside ul li a {
   padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  color: inherit;
+}
+
+aside ul li a.activeSection {
+  box-shadow: inset 0 0 5px 2px #999
 }
 
 aside ul li a:hover {
@@ -281,6 +286,16 @@ fieldset#section-switcher button {
   box-shadow: 0 0 6px 0 #aaa;
   user-select: none;
   cursor: pointer;
+}
+
+fieldset#section-switcher button:last-child {
+  border-bottom-right-radius: 0.7em;
+  border-top-right-radius: 0.7em;
+}
+
+fieldset#section-switcher button:first-child {
+  border-top-left-radius: 0.7em;
+  border-bottom-left-radius: 0.7em;
 }
 
 /* Button animations */
