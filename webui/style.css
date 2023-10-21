@@ -185,6 +185,7 @@ div.entity h2 {
 
 details {
   display: inline-block;
+  min-width: min-content;
 }
 
 details[open] {
