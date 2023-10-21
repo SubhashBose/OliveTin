@@ -8,11 +8,12 @@ body {
 }
 
 dialog {
-  min-width: 600px;
+  min-width: min(600px, 100%);
   text-align: left;
   padding: 1em;
   box-shadow: 0 0 6px 0 #444;
   color: inherit;
+  box-sizing: border-box;
 }
 
 fieldset {
@@ -35,14 +36,14 @@ fieldset#root-group {
 h1 {
   display: inline;
   padding-left: .5em;
-  font-size: small;
+  font-size: 1.2em;
 }
 
 label#sidebar-toggler-button {
-  top: 1em;
+  /*top: 1em;
   left: 0.5em;
   height: 2em;
-  width: 2em;
+  width: 2em;*/
   background-color: white;
   text-align: center;
   display: inline-grid;
@@ -50,6 +51,8 @@ label#sidebar-toggler-button {
   padding: .2em;
   box-shadow: 0 0 5px 0 #444;
   color: #666;
+  position: relative;
+  z-index: 9;
 }
 
 label#sidebar-toggler-button:hover,
@@ -370,10 +373,11 @@ label {
 #perma-widget {
   position: relative;
   /*top: 1em;
-  left: 1em;*/
-  z-index: 9;
+  left: 1em;
+  z-index: 9;*/
   text-align: left;
-  height: 3.8em;
+  min-height: 3em;
+  overflow: auto;
 }
 
 #perma-widget label {
