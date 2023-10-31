@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 )
 
 // StartSingleHTTPFrontend will create a reverse proxy that proxies the API
