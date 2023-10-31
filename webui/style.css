@@ -9,9 +9,11 @@ body {
 
 dialog {
   box-shadow: 0 0 6px 0 #444;
-  min-width: 600px;
+  min-width: min(600px, 100%);
   text-align: left;
   padding: 1em;
+  color: inherit;
+  box-sizing: border-box;
 }
 
 fieldset {
@@ -33,15 +35,15 @@ fieldset#root-group {
 
 h1 {
   display: inline;
-  font-size: small;
+  font-size: 1.2em;
   padding-left: .5em;
 }
 
 #sidebar-toggler-button {
-  top: 1em;
+  /*top: 1em;
   left: 0.5em;
   height: 2em;
-  width: 2em;
+  width: 2em;*/
   background-color: white;
   text-align: center;
   display: inline-grid;
@@ -65,10 +67,10 @@ footer a {
 aside {
   position: absolute;
   width: 180px;
-  height: 100%;
+  height: calc(100% - 5em);
   left: 0;
   top: 0;
-  padding-top: 4em;
+  padding-top: 5em;
   transition: 0.5s ease;
   background-color: white;
   border: 0 0 10px 0;
@@ -96,6 +98,11 @@ aside ul li a {
   padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  color: inherit;
+}
+
+aside ul li a.activeSection {
+  box-shadow: inset 0 0 5px 2px #999
 }
 
 aside ul li a:hover {
@@ -176,6 +183,7 @@ div.entity h2 {
 
 details {
   display: inline-block;
+  min-width: min-content;
 }
 
 details[open] {
@@ -215,6 +223,8 @@ action-button details {
 
 action-button details[open] {
   margin-top: 0;
+  max-height: 13em;
+  overflow: auto;
 }
 
 action-button details summary div {
@@ -262,6 +272,34 @@ input[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
+fieldset#section-switcher {
+  border: 0;
+  text-align: right;
+  margin-bottom: 1em;
+  float: right;
+}
+
+fieldset#section-switcher button {
+  padding: 1em;
+  color: black;
+  display: table-cell;
+  text-align: center;
+  border: 1px solid #999;
+  background-color: white;
+  box-shadow: 0 0 6px 0 #aaa;
+  user-select: none;
+  cursor: pointer;
+}
+
+fieldset#section-switcher button:last-child {
+  border-bottom-right-radius: 0.7em;
+  border-top-right-radius: 0.7em;
+}
+
+fieldset#section-switcher button:first-child {
+  border-top-left-radius: 0.7em;
+  border-bottom-left-radius: 0.7em;
+}
 
 /* Button animations */
 
@@ -313,7 +351,7 @@ img.logo {
 
 main {
   padding: 1em;
-  padding-top: 3em;
+  /*padding-top: 3em;*/
 }
 
 summary {
@@ -333,10 +371,13 @@ label {
 }
 
 #perma-widget {
-  position: absolute;
-  top: 1em;
+  position: relative;
+  /*top: 1em;
   left: 1em;
-  z-index: 9;
+  z-index: 9;*/
+  text-align: left;
+  min-height: 3em;
+  overflow: auto;
 }
 
 #perma-widget label {
@@ -424,7 +465,7 @@ div.toolbar * {
     color: white;
   }
 
-  dialog {
+  form.action-arguments, dialog {
     background-color: #222;
     color: white;
   }

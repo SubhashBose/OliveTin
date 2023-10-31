@@ -89,6 +89,8 @@ class ActionButton extends window.HTMLElement {
 
     this.querySelector('summary').innerText = (this.querySelector('.executions').children.length - 1) + ' executions.'
 
+    this.querySelector('.executions').scrollTop = this.querySelector('.executions').scrollHeight;
+
     window.fetch(this.actionCallUrl, {
       method: 'POST',
       headers: {

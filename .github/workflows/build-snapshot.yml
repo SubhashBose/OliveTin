@@ -2,7 +2,7 @@
 name: "Build Snapshot"
 
 on:
-  - push
+  #- push
   - workflow_dispatch
 
 jobs:
