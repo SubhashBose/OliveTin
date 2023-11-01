@@ -9,7 +9,7 @@ body {
 
 dialog {
   box-shadow: 0 0 6px 0 #444;
-  min-width: min(600px, 100%);
+  min-width: min(40em, 100%);
   text-align: left;
   padding: 1em;
   color: inherit;
@@ -51,6 +51,8 @@ h1 {
   padding: .2em;
   box-shadow: 0 0 5px 0 #444;
   color: #666;
+  position: relative;
+  z-index: 9;
 }
 
 #sidebar-toggler-button:hover,
@@ -378,6 +380,7 @@ label {
   text-align: left;
   min-height: 3em;
   overflow: auto;
+  padding-top: 2px;
 }
 
 #perma-widget label {
@@ -465,13 +468,13 @@ div.toolbar * {
     color: white;
   }
 
-  form.action-arguments, dialog {
-    background-color: #222;
+  /*dialog {
+    background-color: #333;
     color: white;
-  }
+  }*/
 
-  form div.wrapper {
-    background-color: #222;
+  form div.wrapper, dialog {
+    background-color: #333;
   }
 
   button,
@@ -491,7 +494,7 @@ div.toolbar * {
 
   aside {
     background-color: #111;
-    color: white;
+    /*color: white;*/
   }
 
   footer,
