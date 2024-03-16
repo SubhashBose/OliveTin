@@ -16,7 +16,7 @@ jobs:
           - goos: linux
             goarch: arm64
           - goos: linux
-            goarch: arm32
+            goarch: arm
           #- goos: linux
           #  goarch: '386'
           - goos: darwin
