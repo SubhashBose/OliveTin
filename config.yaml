@@ -14,7 +14,7 @@ listenAddressSingleHTTPFrontend: 0.0.0.0:1337
 
 # Use SSL for built-in proxy server
 #SSLCertFile: "path/to/certificate"
-#SSLKeyFile: "pathe/to/key"
+#SSLKeyFile: "path/to/key"
 
 # Choose from INFO (default), WARN and DEBUG
 logLevel: "INFO"
