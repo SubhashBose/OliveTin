@@ -80,6 +80,8 @@ type Config struct {
 	ProxyBaseURL                    string
 	AuthUser                        string
 	AuthPass                        string
+	SSLCertFile                     string
+	SSLKeyFile                      string
 	ExternalProxies                 []ExternalProxy `mapstructure:"externalproxies"`
 	LogLevel                        string
 	Actions                         []Action `mapstructure:"actions"`
@@ -117,6 +119,8 @@ func DefaultConfig() *Config {
 	config.ProxyBaseURL = "/"
 	config.AuthUser = ""
 	config.AuthPass = ""
+	config.SSLCertFile = ""
+	config.SSLKeyFile = ""
 	config.LogLevel = "INFO"
 	config.CheckForUpdates = false
 	config.DefaultPermissions.Exec = true
