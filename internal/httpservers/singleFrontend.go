@@ -90,13 +90,11 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 	srv := &http.Server{
 		Addr:    cfg.ListenAddressSingleHTTPFrontend,
 		Handler: mux,
-		certFile: cfg.SSLCertFile,
-		keyFile: cfg.SSLKeyFile,
 	}
 
 	if (cfg.SSLCertFile != "" && cfg.SSLKeyFile != ""){
 		log.Info("Using SSL to serve")
-		log.Fatal(srv.ListenAndServeTLS())
+		log.Fatal(srv.ListenAndServeTLS(cfg.SSLCertFile, cfg.SSLKeyFile))
 	} else {
 		log.Fatal(srv.ListenAndServe())
 	}
