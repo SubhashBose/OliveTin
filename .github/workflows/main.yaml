@@ -27,6 +27,10 @@ jobs:
             goarch: amd64
           - goos: windows
             goarch: arm64
+          - goos: freebsd
+            goarch: amd64
+          - goos: freebsd
+            goarch: arm64
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2.3.4
