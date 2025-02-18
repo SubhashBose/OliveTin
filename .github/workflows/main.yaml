@@ -87,7 +87,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: artifact/OliveTin_*
+          files: OliveTin_*
           tag_name: ${{ steps.create_tag.outputs.tag }}
           #body_path: rel_note.txt
         env:
