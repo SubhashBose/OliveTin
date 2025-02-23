@@ -16,6 +16,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"strings"
+	"crypto/tls"
 )
 
 // StartSingleHTTPFrontend will create a reverse proxy that proxies the API
@@ -74,6 +75,11 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 		log.Info("Setting up external Proxy: " + proxy.BaseURL + " -> " + proxy.Target)
 		appURL, _ := url.Parse(proxy.Target)
 		appProxy := httputil.NewSingleHostReverseProxy(appURL)
+		if (!proxy.SSLverfy) {
+			appProxy.Transport = &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			}
+		}
 		mux.HandleFunc(proxy.BaseURL, func(w http.ResponseWriter, r *http.Request) {
 										if (!proxy.NoAuth && !AuthFunc(w,r)) {
 												return

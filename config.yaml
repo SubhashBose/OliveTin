@@ -100,6 +100,7 @@ actions:
 #externalproxies:
 #- target: http://localhost:8975
 #  baseurl: /application1/
-#- target: http://localhost:2222
+#- target: https://localhost:2222
 #  baseurl: /application2/
 #  noauth: true  # exclude from global HTTP authentication if defined in this config
+#  sslverify: false # disable SSL verification for this proxy connection
