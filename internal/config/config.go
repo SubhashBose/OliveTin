@@ -66,7 +66,7 @@ type ExternalProxy struct {
 	BaseURL string
 	Target 	string
 	NoAuth  bool `default:false`
-	noSSLverify  bool `default:false`
+	NoSSLverify bool `default:false`
 }
 
 // Config is the global config used through the whole app.
