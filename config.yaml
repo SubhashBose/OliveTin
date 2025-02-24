@@ -103,4 +103,4 @@ actions:
 #- target: https://localhost:2222
 #  baseurl: /application2/
 #  noauth: true  # exclude from global HTTP authentication if defined in this config
-#  sslverify: false # disable SSL verification for this proxy connection
+#  nosslverify: true # disable SSL verification for this proxy connection

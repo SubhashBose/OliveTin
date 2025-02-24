@@ -75,7 +75,7 @@ func StartSingleHTTPFrontend(cfg *config.Config) {
 		log.Info("Setting up external Proxy: " + proxy.BaseURL + " -> " + proxy.Target)
 		appURL, _ := url.Parse(proxy.Target)
 		appProxy := httputil.NewSingleHostReverseProxy(appURL)
-		if (!proxy.SSLverify) {
+		if (proxy.noSSLverify) {
 			appProxy.Transport = &http.Transport{
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 			}
